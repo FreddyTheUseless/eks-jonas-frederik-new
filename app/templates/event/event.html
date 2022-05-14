@@ -1,0 +1,213 @@
+{% extends 'layout.html' %} {% block body %}
+<div class="container">
+    <section class="hero">
+        <div class="hero-body">
+            <div class="field">
+                <form method="POST">
+
+                    <!-- TILES -->
+                    <div class="tile is-ancestor">
+
+
+                        <div class="tile is-parent">
+                            <div class="tile is-child">
+
+                                {% with messages = get_flashed_messages() %} {% if messages %}
+                                <div class="notification is-danger">{{ messages[0] }}</div>
+                                {% endif %} {% endwith %}
+
+                                <div class="column box">
+                                    <h1 class="title is-2">Create a new event</h1>
+
+                                    <div class="field">
+
+
+                                        <p>Event name</p>
+
+                                        <input class="input" type="text" name="eventname" placeholder="Name" />
+                                    </div>
+
+                                    <div class="field">
+                                        <p>Choose a sponsor for this event</p>
+                                        <div class="select">
+                                            <select name="sponsor">
+                                                <option value="" disabled selected hidden>Select sponsor</option>
+                                                <option value="Aramco">Aramco</option>
+                                                <option value="Redbull">Redbull</option>
+                                                <option value="Logitech">Logitech</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="field">
+                                        <p class="control">
+                                            <button class="button is-link" type="submit" name="button"
+                                                value="CREATEEVENT">
+                                                Create event
+                                            </button>
+                                        </p>
+                                    </div>
+
+                                </div>
+
+                                {% if event_status == 1 %}
+
+                                <div class="column box">
+                                    <h1 class="title is-2">Create a new tournament</h1>
+
+
+
+                                    <div class="field">
+
+
+                                        <p>Tournament name</p>
+
+                                        <input class="input" type="text" name="tournamentname" placeholder="Name" />
+                                    </div>
+
+                                    <div class="field">
+                                        <p>Choose an event for this tournament</p>
+                                        <div class="select">
+                                            <select name="event_id">
+                                                <option value="" disabled selected hidden>Select event</option>
+
+                                                {% for i in events %}
+                                                <option value="{{ i.id }}">{{ i.eventname }}</option>
+                                                {% endfor %}
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="field">
+                                        <p>Choose a venue for this tournament</p>
+                                        <div class="select">
+                                            <select name="venue">
+                                                <option value="" disabled selected hidden>Select venue</option>
+
+                                                <option value="Barclays Center">Barclays Center</option>
+                                                <option value="Chase Center">Chase Center</option>
+                                                <option value="Crypto.com Arena">Crypto.com Arena</option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="field">
+                                        <p>Choose a game for this tournament</p>
+                                        <div class="select">
+                                            <select name="game">
+                                                <option value="" disabled selected hidden>Select game</option>
+
+                                                <option value="Minecraft">Minecraft</option>
+                                                <option value="Fortnite">Fortnite</option>
+                                                <option value="Call Of Duty">Call Of Duty</option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="field">
+                                        <p>Tournament size</p>
+                                        <div class="select">
+                                            <select name="size">
+                                                <option value="" disabled selected hidden>Select size</option>
+
+                                                <option value="4">4</option>
+                                                <option value="8">8</option>
+
+
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="field">
+                                        <p class="control">
+                                            <button class="button is-link" type="submit" name="button"
+                                                value="CREATETOURNAMENT">
+                                                Create tournament
+                                            </button>
+                                        </p>
+                                    </div>
+
+                                </div>
+
+                                {% endif %}
+
+                            </form>
+
+
+                            </div>
+                        </div> <!-- END TILE RIGHT -->
+
+                        <div class="tile is-parent">
+                            <div class="tile is-child">
+
+                                {% for n in events %} 
+
+                                <div class="column box">
+                                    
+                                    <h1 class="title is-3">{{ n.eventname }}</h1>
+                                    <h1 class="title is-5">Sponsored by {{ n.sponsor }}</h1>
+                                    
+                                    
+
+                                    {% for i in tournaments %} {% if n.id == i.event_id %}
+                                
+                                    <div class="column box">
+                                    
+                                        <h1 class="title is-5">{{ i.tournamentname }} @ {{ i.venue }}</h1>
+                                        <p>{{ i.game }} gaming in a tournament consisting of {{ i.size }} players</p>
+                                        <br>
+                                        
+                                        <form method="POST">
+
+                                            <input name="t_delete_id" value="{{ i.id }}" hidden />
+                                            <div class="field">
+                                                <p class="control">
+                                                    <button class="button is-danger" type="submit" name="button"
+                                                        value="DELETETOURNAMENT">
+                                                        Delete tournament
+                                                    </button>
+                                                </p>
+                                            </div>
+
+                                        </form>
+                                        
+
+    
+                                    </div>
+
+                                    {% endif %} {% endfor %}
+
+                                    
+                                    <form method="POST">
+
+                                        <input name="e_delete_id" value="{{ n.id }}" hidden />
+                                        <div class="field">
+                                            <p class="control">
+                                                <button class="button is-danger" type="submit" name="button"
+                                                    value="DELETEEVENT">
+                                                    Delete event
+                                                </button>
+                                            </p>
+                                        </div>
+
+                                    </form>
+
+
+                                </div>
+
+                                {% endfor %} 
+
+                                
+
+                            </div>
+                        </div> <!-- END TILE LEFT -->
+
+                    </div> <!-- END TILES -->
+                
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}

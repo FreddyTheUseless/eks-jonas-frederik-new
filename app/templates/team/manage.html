@@ -1,0 +1,83 @@
+{% extends 'layout.html' %} {% block body %}
+<div class="container">
+    <section class="hero">
+        <form method="POST">
+            <div class="hero-body">
+                <div class="column box is-4 is-offset-4 mt-6 mt-6">
+                    {% if team_status == 2 %}
+
+
+                    <div class="field">
+                        <h1 class="title is-2">Create team</h1>
+
+                        <p>Team name</p>
+
+                        <input class="input" type="text" name="teamname" placeholder="Name" />
+
+                    </div>
+                    <div class="field">
+                        <p>Team description</p>
+
+                        <input class="input" type="text" name="teamdescription" placeholder="Description" />
+
+                    </div>
+                    <div class="field">
+                        <p class="control">
+                            <button class="button is-success" type="submit" name="button", value='CREATE'>
+                                Create team
+                            </button>
+                        </p>
+                    </div>
+
+
+                    {% elif team_status == 1 %}
+
+                    <div class="content">
+                        <h1 class="title is-2"> {{ Team.teamname }} </h1>
+                        <h1 class="title is-5"> {{ Team.teamdescription }} </h1>
+
+                        <h1 class="title is-5"> Team roster </h1>
+                        <p>Player1</p>
+
+
+
+                    </div>
+                    
+                    
+                    <div class="field">
+                        <p class="control">
+                            <input name="owner_id" value="{{ Team.teamowner }}" hidden />
+                            <button class="button is-danger" type="submit" name="button" , value='DELETE'>
+                                Delete team
+                            </button>
+                        </p>
+                    </div>
+
+                    {% elif team_status == 0 %}
+
+                    <h1 class="title is-2"> {{ Team.teamname }} </h1>
+                    <h1 class="title is-5"> {{ Team.teamdescription }} </h1>
+                    <br>
+                    <h1 class="title is-4"> Team roster </h1>
+                    <h1 class="title is-5"> John Doe  </h1>
+                    <h1 class="title is-5"> John Doe  </h1>
+                    <h1 class="title is-5"> John Doe  </h1>
+                
+                    <div class="field">
+                        <p class="control">
+                            <input name="owner_id" value="{{ Team.teamowner }}" hidden />
+                            <button class="button is-warning" type="submit" name="button" , value='LEAVE'>
+                                Leave team
+                            </button>
+                        </p>
+                    </div>
+
+
+                    {% endif %}
+
+                </div>
+            </div>
+        </form>
+    </section>
+</div>
+{% endblock %}

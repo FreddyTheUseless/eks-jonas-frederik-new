@@ -1,0 +1,118 @@
+{% extends 'layout.html' %} {% block body %}
+<div class="container">
+  <section class="hero">
+    <div class="hero-body">
+      <div class="field">
+        <form method="POST">
+          {% with messages = get_flashed_messages() %} {% if messages %}
+            <div class="notification is-danger">{{ messages[0] }}</div>
+            {% endif %} {% endwith %}
+          <!-- TILES -->
+          <div class="tile is-ancestor">
+            <div class="tile is-parent">
+              <div class="tile is-child">
+
+                <!-- USERNAME -->
+
+                <h1 class="title is-5">Username</h1>
+
+                <p class="control has-icons-left">
+                  <input type="text" name="username" value="{{username}}" placeholder="Username" class="input" />
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-address-card"></i>
+                  </span>
+                </p>
+                <br />
+
+                <!-- FIRST NAME -->
+                <h1 class="title is-5">Firstname</h1>
+
+                <p class="control has-icons-left">
+                  <input type="text" name="firstname" value="{{firstname}}" placeholder="Firstname" class="input" />
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-address-card"></i>
+                  </span>
+                </p>
+                <br />
+
+                <!-- SURNAME -->
+                <h1 class="title is-5">Surname</h1>
+
+                <p class="control has-icons-left">
+                  <input type="text" name="surname" value="{{surname}}" placeholder="Surname" class="input" />
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-address-card"></i>
+                  </span>
+                </p>
+                <br />
+                <br />
+
+                <!-- DROPDOWN -->
+                <h1 class="title is-5">Select Account Type</h1>
+
+                <div class="field">
+                  <div class="select">
+                    <select name="role">
+                      <option value="" disabled selected hidden>Select type</option>
+                      <option value="ADMIN">Admin</option>
+                      <option value="USER">User</option>
+                    </select>
+                  </div>
+                </div>
+
+
+              </div>
+            </div> <!-- END TILE LEFT -->
+
+            <div class="tile is-parent">
+              <div class="tile is-child">
+
+                <!-- EMAIL -->
+                <h1 class="title is-5">Email</h1>
+
+                <p class="control has-icons-left">
+                  <input type="text" name="email" value="{{email}}" placeholder="Email" class="input" />
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-envelope"></i>
+                  </span>
+                </p>
+                <br />
+
+                <!-- PASSWORD -->
+                <h1 class="title is-5">Password</h1>
+
+                <p class="control has-icons-left">
+                  <input type="password" name="password" value="{{password}}" placeholder="Password" class="input" />
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-lock"></i>
+                  </span>
+                </p>
+                <br />
+                <h1 class="title is-5">Confirm Password</h1>
+
+                <p class="control has-icons-left">
+                  <input type="password" name="passwordconfirm" value="{{password}}" placeholder="Confirm Password" class="input" />
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-lock"></i>
+                  </span>
+                </p>
+                <br />
+                <br />
+                <label class="checkbox">
+                  <input type="checkbox">
+                  I agree to the <a href="{{ url_for('main.terms') }}">Terms</a> of use of Trenmanent
+                </label>
+                <br />
+                <br />
+                <a class="button px-5" href="{{ url_for('main.index') }}"> Cancel </a>
+                <button class="button is-link" type="submit" name="createUser">Register</button>
+              </div>
+            </div> <!-- END TILE RIGHT -->
+            
+          </div> <!-- END TILES -->
+      </form>
+      </div>
+    </div>  
+  </section>
+</div>
+{% endblock %}

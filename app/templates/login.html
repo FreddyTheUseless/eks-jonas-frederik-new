@@ -1,0 +1,58 @@
+{% extends 'layout.html' %} {% block body %}
+<div class="container">
+  <section class="hero">
+    <div class="hero-body">
+      <div class="column box is-4 is-offset-4 mt-6 mt-6">
+        <form method="POST">
+          <div class="field">
+            <h1 class="title is-2">Login</h1>
+
+            {% with messages = get_flashed_messages() %} {% if messages %}
+            <div class="notification is-danger">{{ messages[0] }}</div>
+            {% endif %} {% endwith %}
+
+            <p>Email</p>
+            <p class="control has-icons-left has-icons-right">
+              
+              <input
+                class="input"
+                type="text"
+                name="email"
+                placeholder="Email"
+              />
+              <span class="icon is-small is-left">
+                <i class="fas fa-envelope"></i>
+              </span>
+            </p>
+          </div>
+          <div class="field">
+            <p>Password</p>
+            <p class="control has-icons-left">
+              
+              <input
+                class="input"
+                type="password"
+                name="password"
+                placeholder="Password"
+              />
+              <span class="icon is-small is-left">
+                <i class="fas fa-lock"></i>
+              </span>
+            </p>
+          </div>
+          <div class="field">
+            <p class="control">
+              <button class="button is-link" type="submit" name="loginUser">
+                Forgot Password
+              </button>
+              <button class="button is-link" type="submit" name="loginUser">
+                Login
+              </button>
+            </p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+</div>
+{% endblock %}

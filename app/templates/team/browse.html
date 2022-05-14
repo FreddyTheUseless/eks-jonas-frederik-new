@@ -1,0 +1,113 @@
+{% extends 'layout.html' %} {% block body %}
+
+<div class="container is-max-desktop">
+  <br> <br>
+  <div class="box mx-6">
+    <h1 class="title is-2">Browse Teams</h1>
+
+    {% if joinable == 0 %}
+    <div class="notification is-danger">You are currently in a team. Leave this team to join a new team</div>
+    {% endif %}
+
+
+    {%for n in teams%}
+    <div class="box mx-6">
+      <div class="columns is-centered is-2">
+        <div class="column is-two-fifths">
+
+          <!--Notification-->
+          <article class="media">
+            <div class="media-left">
+              <figure class="image is-64x64">
+                <img src="https://bulma.io/images/placeholders/128x128.png" alt="Image">
+              </figure>
+            </div>
+            <div class="media-content">
+              <div class="content">
+                <p>
+                  <strong>{{ n.teamname}}</strong>
+                  <br>
+                  {{ n.teamdescription}}
+                </p>
+              </div>
+            </div>
+          </article>
+          <!--END NOTIFICATION-->
+
+        </div>
+        <!--END Column 1-->
+
+        <div class="column">
+          <!--dropdown-->
+          <div class="dropdown is-hoverable m-3">
+            <div class="dropdown-trigger">
+              <button class="button" aria-haspopup="true" aria-controls="dropdown-menu4">
+                <span>Players</span>
+                <span class="icon is-small">
+                  <i class="fas fa-angle-down" aria-hidden="true"></i>
+                </span>
+              </button>
+            </div>
+            <div class="dropdown-menu" id="dropdown-menu4" role="menu">
+              <div class="dropdown-content">
+                <div class="dropdown-item">
+                  <div class="tile is-ancestor">
+                    <div class="tile is-vertical is-8">
+                      <div class="tile">
+                        <div class="tile is-parent is-vertical">
+                          {%for u in users%}{%for t in tUsers%}
+                          {%if u.id == t.user_id%} {%if n.id == t.team_id%}
+                          <article class="tile is-child box">
+                            {{u.username}}
+                          </article>
+                          {%endif%}{%endif%}
+                          {%endfor%}{%endfor%}
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--END Dropdown-->
+        </div>
+        <!--END Column 2-->
+
+        <div class="column is-one-quarter">
+          <!--JOIN Button-->
+          {% if joinable != 0 %}
+          <form method="POST">
+            <div class="field">
+              <p class="control">
+                <button class="button is-link m-3" type="submit" name="team_id" , value='{{ n.id }}'>
+                  Join team
+                </button>
+              </p>
+            </div>
+          </form>
+          {% endif %}
+
+
+
+          <div class="field">
+            <p class="control">
+
+            </p>
+          </div>
+          <!--END Join Button-->
+
+
+        </div>
+        <!--END Column 3-->
+      </div>
+      <!--END Columns-->
+    </div>
+  
+  {%endfor%}
+</div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'layout.html' %} {% block body %}
+<section class="section">
+  <div class="container">
+    {% with messages = get_flashed_messages() %} {% if messages %}
+    <div class="notification is-danger">{{ messages[0] }}</div>
+    {% endif %} {% endwith %}
+
+    <div class="field">
+      <p class="control has-icons-left has-icons-right">
+        <input class="input" type="text" name="username" value="{{username}}" readonly />
+        <span class="icon is-small is-left">
+          <i class="fas fa-user"></i>
+        </span>
+      </p>
+    </div>
+    <div class="field">
+      <p class="control has-icons-left has-icons-right">
+        <input class="input" type="email" name="email" value="{{email}}" readonly />
+        <span class="icon is-small is-left">
+          <i class="fas fa-envelope"></i>
+        </span>
+      </p>
+    </div>
+    <div class="field">
+      <p class="control">
+        <a class="button is-success" href="{{ url_for('auth.profile_username') }}">Change username</a>
+        <a class="button is-success" href="{{ url_for('auth.profile_email') }}">Change email</a>
+        <a class="button is-success" href="{{ url_for('auth.profile_password') }}">Change password</a>
+      </p>
+    </div>
+  </div>
+</section>
+{% endblock %}

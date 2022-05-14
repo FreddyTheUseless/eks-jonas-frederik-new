@@ -1,0 +1,250 @@
+{% extends 'layout.html' %} {% block body %}
+<div class="container">
+	<section class="hero">
+		<div class="hero-body">
+			<div class="field">
+				<form method="POST">
+
+					<!-- TILES -->
+					<div class="tile is-ancestor">
+
+
+
+
+						<div class="tile is-parent">
+							<div class="tile is-child">
+
+								<div class="column box">
+									<h1 class="title is-3">Joinable tournaments</h1>
+								</div>
+								{% for n in events %}
+
+								<div class="column box">
+
+									<h1 class="title is-3">{{ n.eventname }}</h1>
+									<h1 class="title is-5">Sponsored by {{ n.sponsor }}</h1>
+
+
+
+									{% for i in tournaments %} {% if n.id == i.event_id %}
+
+									{% set count = [] %}
+									{% set users_registered = [] %}
+									{% for x in registrations %} {% if x.tournament_id == i.id %}
+									{% set __ = count.append(1) %}
+									{% set __ = users_registered.append(x.user_id) %}
+									{% endif %} {% endfor %}
+
+									<div class="column box">
+
+										<h1 class="title is-5">{{ i.tournamentname }} @ {{ i.venue }}</h1>
+
+										<p>{{ i.game }} Tournament: {{ count|length }} / {{ i.size }} players</p>
+										<br>
+
+
+
+										{% if user_id not in users_registered %}
+										<form method="POST">
+
+											<input name="join_id" value="{{ i.id }}" hidden />
+											<div class="field">
+												<p class="control">
+													<button class="button is-link" type="submit" name="button"
+														value="JOINTOURNAMENT">
+														Join tournament
+													</button>
+												</p>
+											</div>
+
+										</form>
+
+										{% else %}
+
+										<form method="POST">
+
+											<input name="leave_id" value="{{ i.id }}" hidden />
+											<div class="field">
+												<p class="control">
+													<button class="button is-danger" type="submit" name="button"
+														value="LEAVETOURNAMENT">
+														Leave tournament
+													</button>
+												</p>
+											</div>
+
+										</form>
+
+
+										{% endif %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+									</div>
+									{% endif %} {% endfor %}
+								</div>
+
+								{% endfor %}
+							</div>
+
+						</div> <!-- END TILE RIGHT -->
+
+						<div class="tile is-parent">
+							<div class="tile is-child">
+
+								<div class="column box">
+									<h1 class="title is-3">Ongoing tournaments</h1>
+								</div>
+
+								{% for n in ongoing_events %}
+								<div class="column box">
+
+									
+
+									
+									<h1 class="title is-3">{{ n.eventname }}</h1>
+									<h1 class="title is-5">Sponsored by {{ n.sponsor }}</h1>
+
+									{% for i in ongoing_tournaments %} {% if n.id == i.event_id %}
+
+									{% set rounds = [] %}									
+									{% for x in registrations %} {% if x.tournament_id == i.id %}
+									{% set __ = rounds.append(1) %}									
+									{% endif %} {% endfor %}
+
+									<div class="column box">
+
+										<h1 class="title is-5">{{ i.tournamentname }} @ {{ i.venue }}</h1>
+
+										<p>{{ i.game }} Tournament </p>
+										<br>
+
+
+										{% if rounds|sum // 2 == 2 %}
+										<main id="tournament">
+										
+											<ul class="round round-1">
+												<li class="spacer">&nbsp;</li>
+
+												{% for g in matchups %} {% if g.tournament_id == i.id %}
+												
+												{% for u in users %} {% if u.id == g.user_id1 %}
+												<li class="game game-top"> {{u.username}} </li>
+												{% endif %} {% endfor %}
+
+												<li class="game game-spacer">&nbsp;</li>
+												
+												{% for y in users %} {% if y.id == g.user_id2 %}
+												<li class="game game-bottom"> {{y.username}} </li>
+												{% endif %} {% endfor %}
+
+												<li class="spacer">&nbsp;</li>
+												
+												{% endif %} {% endfor %}
+												
+											</ul>
+
+											<ul class="round round-2">
+												<li class="spacer">&nbsp;</li>
+												
+												<li class="game game-top"> <span></span></li>
+												<li class="game game-spacer">&nbsp;</li>
+												<li class="game game-bottom "> <span></span></li>
+										
+												<li class="spacer">&nbsp;</li>
+																				
+											</ul>
+										</main>
+
+										{% elif rounds|sum // 2 == 3 %}
+
+										<main id="tournament">
+										
+											<ul class="round round-1">
+												<li class="spacer">&nbsp;</li>
+
+												{% for g in matchups %} {% if g.tournament_id == i.id %}
+												
+												{% for u in users %} {% if u.id == g.user_id1 %}
+												<li class="game game-top"> {{u.username}} </li>
+												{% endif %} {% endfor %}
+
+												<li class="game game-spacer">&nbsp;</li>
+												
+												{% for y in users %} {% if y.id == g.user_id2 %}
+												<li class="game game-bottom"> {{y.username}} </li>
+												{% endif %} {% endfor %}
+
+												<li class="spacer">&nbsp;</li>
+												
+												{% endif %} {% endfor %}
+												
+											</ul>
+
+											<ul class="round round-2">
+												<li class="spacer">&nbsp;</li>
+												
+												<li class="game game-top"> <span></span></li>
+												<li class="game game-spacer">&nbsp;</li>
+												<li class="game game-bottom "> <span></span></li>
+										
+												<li class="spacer">&nbsp;</li>
+
+												<li class="game game-top"> <span></span></li>
+												<li class="game game-spacer">&nbsp;</li>
+												<li class="game game-bottom "> <span></span></li>
+										
+												<li class="spacer">&nbsp;</li>
+																				
+											</ul>
+
+											<ul class="round round-3">
+												<li class="spacer">&nbsp;</li>
+												
+												<li class="game game-top"> <span></span></li>
+												<li class="game game-spacer">&nbsp;</li>
+												<li class="game game-bottom "> <span></span></li>
+										
+												<li class="spacer">&nbsp;</li>
+																				
+											</ul>
+										</main>
+
+										{% endif %}
+											
+									</div>
+
+									{% endif %} {% endfor %}
+
+
+								</div>
+
+								{% endfor %}
+
+							</div>
+
+
+						</div>
+
+					</div> <!-- END TILE RIGHT -->
+
+			</div> <!-- END TILES -->
+
+		</div>
+</div>
+</section>
+</div>
+{% endblock %}
