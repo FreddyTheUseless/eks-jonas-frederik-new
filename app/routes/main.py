@@ -156,6 +156,10 @@ def browse_post():
 def manage():
     title = "Manage"
 
+    teams = Teams.query.all()
+    users = Users.query.all()
+    tUsers = teamsusers.query.all()
+
     Team = null
 
     if teamsusers.query.filter_by(user_id=current_user.id).first() is not None: # User is in a team but does NOT own the team
@@ -170,7 +174,7 @@ def manage():
         team_status = 2 # User is not in a team and does NOT own a team either
 
 
-    return render_template('team/manage.html', title=title, username=current_user.username, team_status=team_status, Team=Team)
+    return render_template('team/manage.html', title=title, username=current_user.username, team_status=team_status, Team=Team, teams=teams, users=users, tUsers=tUsers)
 
 @main.route('/manage', methods=['POST'])
 def manage_post():

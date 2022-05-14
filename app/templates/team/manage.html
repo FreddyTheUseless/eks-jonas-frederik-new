@@ -37,10 +37,20 @@
                         <h1 class="title is-5"> {{ Team.teamdescription }} </h1>
 
                         <h1 class="title is-5"> Team roster </h1>
-                        <p>Player1</p>
 
-
-
+                        {%for u in users%}
+                        {%for t in teams%}
+                        {%for i in tUsers%}
+                            {%if i.user_id == u.id%}
+                            {%if i.team_id == t.id%}
+                            <article class="is-tilde">
+                                {{u.user_id}}
+                            </article>
+                            {%endif%}
+                            {%endif%}
+                        {%endfor%}
+                        {%endfor%}
+                        {%endfor%}
                     </div>
                     
                     
@@ -59,9 +69,12 @@
                     <h1 class="title is-5"> {{ Team.teamdescription }} </h1>
                     <br>
                     <h1 class="title is-4"> Team roster </h1>
-                    <h1 class="title is-5"> John Doe  </h1>
-                    <h1 class="title is-5"> John Doe  </h1>
-                    <h1 class="title is-5"> John Doe  </h1>
+                    {%for u in users%}
+                        {%if tUsers.team_id == teams.id%}
+                        {%if u.id == tUsers.user_id%}
+                        {{u.username}}
+                        {%endif%}{%endif%}
+                    {%endfor%}
                 
                     <div class="field">
                         <p class="control">
